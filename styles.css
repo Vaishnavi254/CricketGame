@@ -1,0 +1,38 @@
+body {
+    text-align: center;
+  }
+
+.choice-button{
+    height: 100px;
+    width:100px;
+    border: 2px solid black;
+    margin:10px;
+    background-color: rgb(199, 168, 240);
+    border-radius: 50px;
+    cursor: pointer ;
+} 
+
+.choice-image{
+    height: 75px;
+  
+  
+  
+}  
+.bg{
+    border:solid black 2px;
+    background-color: rgb(238, 150, 187);
+}
+h1{
+    color:rgb(40, 40, 236);
+    text-decoration:underline;
+}
+.btn{
+    color: rgb(247, 248, 249);
+    background-color: rgb(147, 197, 246);
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+}

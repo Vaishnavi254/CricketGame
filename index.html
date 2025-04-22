@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cricket Game</title>
+ <link rel="stylesheet" href="styles.css"></link>
+  </head>
+  <body>
+  <div class="bg">
+    <h1>Bat Ball Stump Game</h1>
+
+    <button class="choice-button"
+      onclick="
+ let computerchoice= generateComputerChoice();
+ resultMsg=getResult('Bat',computerchoice);
+ showResult('Bat',computerchoice,resultMsg);
+"
+    >
+    <img src="images/bat.png" alt="Bat Image" class="choice-image"></img>
+    </button>
+    <button class="choice-button"
+      onclick="
+
+    computerchoice=generateComputerChoice();   
+    resultMsg=getResult('Ball',computerchoice);
+    showResult('Ball',computerchoice,resultMsg);
+
+   "
+    >
+    <img src="images/ball.png" alt="Ball Image" class="choice-image"></img>
+    </button>
+    <button class="choice-button"
+      onclick="
+   computerchoice=generateComputerChoice();
+   resultMsg=getResult('Stump',computerchoice);
+   showResult('Stump',computerchoice,resultMsg);
+  "
+    >
+    <img src="images/stump.png" alt="style Image" class="choice-image"></img>
+    </button>
+
+
+    <h3 id="user-move"></h3>
+    <h3 id="computer-move"></h3>
+    <h3 id="result"></h3>
+    <h3 id="score"></h3>
+    <button onclick="localStorage.clear();
+    resetScore();" class="btn">Reset</button>
+    </div>
+    <script>
+      let scoreStr=localStorage.getItem('Score');
+      let score;
+      resetScore(scoreStr);
+      
+      function resetScore(scoreStr){
+        score= scoreStr?JSON.parse(scoreStr):{
+        win:0,
+        lost:0,
+        tie:0,
+      };
+          
+      score.displayScore=function(){
+          return `Score: Won:${score.win}, Lost:${score.lost},Tie:${score.tie}`;
+        };
+        showResult();
+}
+
+      function generateComputerChoice() {
+        let randomNumber = Math.random() * 3;
+        let computerchoice;
+        if (randomNumber > 0 && randomNumber <= 1) {
+          return "Bat";
+        } else if (randomNumber > 1 && randomNumber <= 2) {
+          return "Ball";
+        } else {
+          return "Stump";
+        }
+      }
+      function getResult(userMove, computerMove) {
+        if (userMove === "Bat") {
+          if (computerMove === "Stump") {
+            score.lost++;
+            return "Computer has won";
+          } else if (computerMove === "Ball") {
+            score.win=score.win+1;
+            return "User Won";
+          } else if (computerMove === "Bat") {
+            score.tie++;
+            return `It's a tie`;
+          }
+        } else if (userMove === "Ball") {
+          if (computerMove === "Stump") {
+            score.win++;
+            return "User Won";
+          } else if (computerMove === "Ball") {
+            score.tie++;
+            return `It's a tie`;
+          } else if (computerMove === "Bat") {
+            score.lost++;
+            return "Computer has won";
+          }
+        } else {
+          if (computerMove === "Stump") {
+            score.win++;
+            return "User Won";
+          } else if (computerMove === "Ball") {
+            score.tie++;
+            return `It's a tie`;
+          } else if (computerMove === "Bat") {
+            score.lost++;
+            return "Computer has won";
+          }
+        }
+      }
+     
+      function showResult(userMove, computerMove, result) {
+        localStorage.setItem('score',JSON.stringify(score));
+        document.querySelector('#user-move').innerText=
+        userMove!=undefined?`You have chosen ${userMove}`:"";
+
+        document.querySelector('#computer-move').innerText=
+        computerMove!=undefined?`Computer choice is ${computerMove}`:"";
+
+        document.querySelector('#result').innerText=
+        result?`${result}`:"";
+        document.querySelector('#score').innerText=` ${score.displayScore()}`;
+        // alert(
+        //   `You have chosen ${userMove}. Computer choice is ${computerMove} and 
+          
+        //   ${result}
+        //   ${score .displayScore()}
+
+        // `);
+      }
+    </script>
+  </body>
+</html>
